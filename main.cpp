@@ -13,7 +13,7 @@ std::vector<int> find_shortest_path(const Graph& graph, const int start, const i
 int main() {
     std::ifstream file("graph.txt");
     if (!file.is_open()) {
-        std::cerr << "Failed to open the file." << std::endl;
+        std::cout << "Failed to open the file." << std::endl;
         return 1;
     }
 
@@ -30,6 +30,10 @@ int main() {
 
     for (size_t i = 0; i < e; i++) {
         file >> a >> b;
+        if (a < 0 || b < 0) {
+            std::cout << "Incorrect input" << std::endl;
+            return 1;
+        }
         add_edge(graph, a, b);
     }
 
@@ -53,9 +57,7 @@ void add_edge(Graph& graph, const int from, const int to) {
 }
 
 std::vector<int> find_shortest_path(const Graph& graph, const int start, const int v) {
-    
     std::vector<int> dist(v, -1);
-
     std::queue<int> q;
 
     dist[start] = 0;
